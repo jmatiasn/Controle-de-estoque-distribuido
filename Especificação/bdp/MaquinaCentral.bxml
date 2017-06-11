@@ -1,7 +1,0 @@
-<Machine name='MaquinaCentral' type='abstraction'>
-<Initialisation>
-<Skip/>
-</Initialisation>
-<TypeInfos/>
-
-</Machine>
