@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<db_xml>
+    <atelierb version="3_7_ubuntu-cvs" />
+    <project decomp_dir="C:\Users\Joao\Documents\Atelier B\ControleDeEstoquesB\bdp\expand_src" old_decomp_dir="C:\Users\Joao\Documents\Atelier B\ControleDeEstoquesB\bdp\src">
+        <!-- Definition directory list -->
+        <!-- Component file list -->
+        <component_file path="C:/Users/Joao/Documents/Atelier B/ControleDeEstoquesB" name="Estoque" suffix="mch" user="Joao">
+            <component name="Estoque" type="specification" />
+        </component_file>
+        <component_file path="C:/Users/Joao/Documents/Atelier B/ControleDeEstoquesB" name="MaquinaCentral" suffix="mch" user="Joao">
+            <component name="MaquinaCentral" type="specification" />
+        </component_file>
+        <component_file path="C:/Users/Joao/Documents/Atelier B/ControleDeEstoquesB" name="Produto" suffix="mch" user="Joao">
+            <component name="Produto" type="specification" />
+        </component_file>
+        <component_file path="C:/Users/Joao/Documents/Atelier B/ControleDeEstoquesB" name="Tipo" suffix="mch" user="Joao">
+            <component name="Tipo" type="specification" />
+        </component_file>
+    </project>
+</db_xml>

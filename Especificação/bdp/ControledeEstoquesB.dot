@@ -1,0 +1,7 @@
+digraph {
+Estoque [ label=" Estoque " shape= box ]
+MaquinaCentral [ label=" MaquinaCentral " shape= box ]
+Produto [ label=" Produto " shape= box ]
+Tipo [ label=" Tipo " shape= box ]
+
+}
