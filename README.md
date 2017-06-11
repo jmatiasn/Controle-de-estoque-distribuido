@@ -1,2 +1,2 @@
 # Controle-de-estoque-distribuido
-Especificação de sistema usando método B e código gerado em C
+Especificação de um controle de estoque distribuído usando método B e código gerado em C
