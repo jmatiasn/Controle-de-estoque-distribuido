@@ -4,5 +4,7 @@
  */
 MACHINE
     Tipo
+    
+SETS TIPO
 
 END
