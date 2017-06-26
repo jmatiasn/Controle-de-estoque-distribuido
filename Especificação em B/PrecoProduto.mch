@@ -8,22 +8,22 @@ MACHINE
 
 USES              GerenciadorProduto
 
-VARIABLES         preco
+VARIABLES         precoP
 
-INVARIANT         preco : produtos --> NAT1
+INVARIANT         precoP : produtos --> NAT1
 
-INITIALISATION    preco :: produtos --> NAT1
+INITIALISATION    precoP :: produtos --> NAT1
 
 OPERATIONS
 
   setPreco(prod, novoPreco) =
   PRE prod : produtos & novoPreco : NAT1
-  THEN preco(prod) := novoPreco
+  THEN precoP(prod) := novoPreco
   END;
 
   pp <-- getPrecoProduto(prod) =
   PRE prod : produtos
-  THEN pp := preco(prod) END
+  THEN pp := precoP(prod) END
   
   //TODO: buscar produtos com valor menor que
   

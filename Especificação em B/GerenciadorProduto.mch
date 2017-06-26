@@ -6,11 +6,23 @@ MACHINE
     GerenciadorProduto
     
 INCLUDES Produto
-    
+
 VARIABLES produtos
     
 INVARIANT produtos <: PRODUTO
     
 INITIALISATION produtos := {}
+    
+OPERATIONS
+
+    adicionarProduto(novoP) =
+    PRE   novoP: PRODUTO & novoP/: produtos
+    THEN  produtos := produtos \/ {novoP}
+    END;
+    
+    removerProduto(prodARemover) =
+    PRE   prodARemover: produtos
+    THEN  produtos := produtos - {prodARemover}
+    END
 
 END

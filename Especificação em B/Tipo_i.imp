@@ -1,0 +1,12 @@
+/* Tipo_i
+ * Author: Joao
+ * Creation date: 25/06/2017
+ */
+
+IMPLEMENTATION Tipo_i
+REFINES Tipo
+VALUES
+    TIPO = 0..30
+
+
+ END

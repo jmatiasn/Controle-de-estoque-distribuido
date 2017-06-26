@@ -6,7 +6,7 @@ MACHINE
     GerenciadorTipo
     
 INCLUDES Tipo
-    
+   
 CONSTANTS semtipo
     
 PROPERTIES semtipo: TIPO
@@ -24,7 +24,6 @@ OPERATIONS
     THEN   tipos := tipos \/ {novoTipo}
     END;
     
-    //TODO: alterar os produtos desse tipo removido para "semtipo"
     removerTipo(tipoARemover) =
     PRE    tipoARemover: tipos & tipoARemover /= semtipo
     THEN   tipos := tipos - {tipoARemover}

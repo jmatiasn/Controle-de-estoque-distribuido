@@ -1,0 +1,13 @@
+/* Produto_i
+ * Author: Joao
+ * Creation date: 25/06/2017
+ */
+
+IMPLEMENTATION Produto_i
+REFINES Produto
+    
+VALUES
+    PRODUTO = 0..30
+
+
+ END

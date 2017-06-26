@@ -4,5 +4,7 @@
  */
 MACHINE
     Estoque
+    
+SETS ESTOQUE
 
 END
