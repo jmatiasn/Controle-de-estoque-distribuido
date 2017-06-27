@@ -1,0 +1,33 @@
+/* GerenciadorTipo_r
+ * Author: Joao
+ * Creation date: 26/06/2017
+ */
+
+REFINEMENT GerenciadorTipo_r
+REFINES GerenciadorTipo
+
+VARIABLES tipos
+    
+CONCRETE_VARIABLES 
+    numtipos, arraytipos
+    
+INVARIANT
+    numtipos: NAT & arraytipos: 0..30 --> TIPO
+    
+INITIALISATION tipos := {semtipo}; numtipos:= 0;
+    arraytipos := (0..30) * TIPO 
+    
+
+OPERATIONS
+    adicionarTipo(novoTipo) =
+    PRE    novoTipo: TIPO & novoTipo /: tipos
+    THEN   tipos := tipos \/ {novoTipo}
+    END;
+
+    
+    removerTipo(tipoARemover) =
+    PRE    tipoARemover: tipos & tipoARemover /= semtipo
+    THEN   tipos := tipos - {tipoARemover}
+    END
+
+ END

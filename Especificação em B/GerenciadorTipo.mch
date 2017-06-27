@@ -7,7 +7,7 @@ MACHINE
     
 INCLUDES Tipo
    
-CONSTANTS semtipo
+CONCRETE_CONSTANTS semtipo
     
 PROPERTIES semtipo: TIPO
     
@@ -25,7 +25,7 @@ OPERATIONS
     END;
     
     removerTipo(tipoARemover) =
-    PRE    tipoARemover: tipos & tipoARemover /= semtipo
+    PRE    tipoARemover: TIPO & tipoARemover /= semtipo
     THEN   tipos := tipos - {tipoARemover}
     END
    

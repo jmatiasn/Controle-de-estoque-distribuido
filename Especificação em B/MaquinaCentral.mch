@@ -3,7 +3,7 @@
  * Creation date: 11/06/2017
  */
  
- //TODO: abstrair variáveis em máquinas
+ //TODO: abstrair máquinas
 MACHINE
     MaquinaCentral
 
@@ -34,7 +34,7 @@ OPERATIONS
     //---------------------------------------------------------------------
     //OPERAÇÕES COM TIPO
     removerTipoMC(tt) =
-    PRE    tt:tipos & 
+    PRE    tt:TIPO & 
            tt: ran(produtoTipo) & 
            tt /= semtipo & 
            tt: ran(estoqueTipo)
@@ -53,13 +53,13 @@ OPERATIONS
     PRE    pp: PRODUTO & 
            pp/: produtos & 
            pp/:dom(produtoTipo) & 
-           tt: tipos
+           tt: TIPO
     THEN   adicionarProduto(pp) ||
            produtoTipo(pp) := tt
     END;
     
     removerProdutoMC(pp) =
-    PRE    pp:produtos & 
+    PRE    pp:PRODUTO & 
            pp: dom(produtoTipo)
     THEN   removerProduto(pp) ||
            produtoTipo := (produtos - {pp}) <| produtoTipo ||
@@ -72,18 +72,19 @@ OPERATIONS
     //---------------------------------------------------------------------
     //OPERAÇÕES COM TIPO<->PRODUTO
     atribuirTipoProduto(pp, tt) =
-    PRE    pp: produtos & 
+    PRE    pp: PRODUTO & 
            pp: dom(produtoTipo) &
-           tt: tipos & 
+           tt: TIPO & 
            tt: ran(produtoTipo)
     THEN   produtoTipo(pp):= tt
     END;
     
-    tt <-- obterTipoProduto(pp) =
-    PRE    pp:produtos & 
-           pp: dom(produtoTipo)
-    THEN   tt := produtoTipo(pp)
-    END; 
+//    tt <-- obterTipoProduto(pp) =
+//    PRE    pp:produtos & 
+//           pp: dom(produtoTipo) &
+//           produtoTipo(pp): TIPO
+//    THEN   tt := produtoTipo(pp)
+//    END; 
     
     //---------------------------------------------------------------------
     //OPERAÇÕES COM ESTOQUE
@@ -96,13 +97,15 @@ OPERATIONS
     END;
     
     atribuirTiposNoEstoque(ee, tt) =
-    PRE    ee: estoques & 
-           tt: tipos
+    PRE    ee: ESTOQUE & 
+           tt: TIPO
     THEN   estoqueTipo := estoqueTipo \/ {ee |-> tt}
     END;
     
     atribuirQuantidadeTipoNoEstoque(ee, tt, qq) =
-    PRE    ee: dom(estoqueTipo) & 
+    PRE    ee: ESTOQUE &
+           ee: dom(estoqueTipo) & 
+           tt: TIPO &
            tt: ran(estoqueTipo) & 
            (ee |-> tt): estoqueTipo & 
            qq: NAT1
@@ -110,14 +113,18 @@ OPERATIONS
     END;
     
     cadastrarProdutosNoEstoque(ee, pp) =
-    PRE    ee: dom(estoqueTipo) & 
+    PRE    ee: ESTOQUE &
+           ee: dom(estoqueTipo) &
+           pp: PRODUTO &
            pp: dom(produtoTipo)
     THEN   estoqueProduto := estoqueProduto \/ {ee |-> pp}
     END;
     
     //Atribui a quantidade que existe de um produto no estoque
     atribuirQuantidadeProdutosNoEstoque(ee, pp, qq) =
-    PRE    ee: dom(estoqueProduto) & 
+    PRE    ee: ESTOQUE &
+           ee: dom(estoqueProduto) & 
+           pp: PRODUTO &
            pp: ran(estoqueProduto) & 
            pp: dom(produtoTipo) &
            (ee |-> pp): estoqueProduto & 
@@ -129,7 +136,7 @@ OPERATIONS
     //Ao remover produto do estoque, ele é removido de
     //estoqueProduto e estoqueProdutoQtd
     removerProdutoDoEstoque(ee, pp) =
-    PRE    ee: estoques & pp: produtos & 
+    PRE    ee: ESTOQUE & pp: PRODUTO & 
            (ee |-> pp): estoqueProduto &
            (ee |-> pp): dom(estoqueProdutoQtd)
     THEN   estoqueProduto := estoqueProduto - {ee |-> pp} ||

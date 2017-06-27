@@ -21,7 +21,7 @@ OPERATIONS
     END;
     
     removerEstoque(estARemover) =
-    PRE   estARemover: estoques
+    PRE   estARemover: ESTOQUE
     THEN  estoques := estoques - {estARemover}
     END
 

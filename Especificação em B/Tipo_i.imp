@@ -6,7 +6,7 @@
 IMPLEMENTATION Tipo_i
 REFINES Tipo
 VALUES
-    TIPO = 0..30
-
-
+    TIPO = 0..30;
+    DEFAULT_SEMTIPO = 0
+    
  END

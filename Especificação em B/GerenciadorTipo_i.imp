@@ -1,6 +1,6 @@
 /* GerenciadorTipo_i
 * Author: Joao
-* Creation date: 26/06/2017
+* Creation date: 25/06/2017
 */
 
 IMPLEMENTATION GerenciadorTipo_i
@@ -9,55 +9,31 @@ REFINES GerenciadorTipo
 SEES Tipo
     
 CONCRETE_VARIABLES 
-    numtipos, arraytipos
+    arraytipos
     
 INVARIANT 
-    numtipos: NAT & arraytipos: 0..30 --> TIPO    
+    arraytipos: TIPO --> BOOL   
     
 VALUES
-    semtipo = 0
+    semtipo = DEFAULT_SEMTIPO
     
-    //o zero representa o semtipo
-INITIALISATION numtipos:= 0;
-    arraytipos := (0..30) * {0}
+INITIALISATION arraytipos := TIPO * {FALSE}; arraytipos(semtipo) := TRUE
     
     
 OPERATIONS
     adicionarTipo(novoTipo) =
-    BEGIN   arraytipos(numtipos) := novoTipo;
-        IF novoTipo /= 0 
-        THEN numtipos := numtipos + 1
+    BEGIN   
+        IF novoTipo /= semtipo
+        THEN arraytipos(novoTipo) := TRUE
         END
     END;
     
     
     removerTipo(tipoARemover) =
     BEGIN
-        //buscando o tipo
-        VAR cont, temp, indice, limite IN 
-            cont := 0 ;   
-            temp := 0;
-            limite := 30;
-            indice := -1;
-            WHILE cont <= limite 
-            DO
-                temp := arraytipos(cont);
-                
-                IF temp = cont 
-                THEN indice:= cont; 
-                    cont:= 30; 
-                END;
-                cont := cont + 1
-            INVARIANT indice : NAT & 
-                temp : TIPO
-            VARIANT limite - cont
-            END;
-            /*se encontrou tipo*/
-            IF indice /= -1  
-            THEN arraytipos(indice) := 0;
-                numtipos := numtipos - 1
-            END
-        END 
-    END;
+        IF tipoARemover /= semtipo
+        THEN arraytipos(tipoARemover) := FALSE
+        END
+    END
     
 END

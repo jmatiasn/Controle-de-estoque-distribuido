@@ -1,0 +1,32 @@
+/* GerenciadorProduto_i
+ * Author: Joao
+ * Creation date: 26/06/2017
+ */
+
+IMPLEMENTATION GerenciadorProduto_i
+REFINES GerenciadorProduto
+    
+SEES Produto
+
+CONCRETE_VARIABLES 
+    arrayprodutos
+    
+INVARIANT 
+    arrayprodutos: PRODUTO --> BOOL   
+
+INITIALISATION arrayprodutos := PRODUTO * {FALSE}
+    
+
+OPERATIONS
+    adicionarProduto(novoP) =
+    BEGIN   
+        arrayprodutos(novoP) := TRUE
+    END;
+
+    
+    removerProduto(prodARemover) =
+    BEGIN   
+        arrayprodutos(prodARemover) := FALSE
+    END
+
+ END

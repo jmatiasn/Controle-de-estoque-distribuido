@@ -21,7 +21,7 @@ OPERATIONS
     END;
     
     removerProduto(prodARemover) =
-    PRE   prodARemover: produtos
+    PRE   prodARemover: PRODUTO
     THEN  produtos := produtos - {prodARemover}
     END
 

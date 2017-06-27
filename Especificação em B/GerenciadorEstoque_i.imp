@@ -1,0 +1,32 @@
+/* GerenciadorEstoque_i
+ * Author: Joao
+ * Creation date: 26/06/2017
+ */
+
+IMPLEMENTATION GerenciadorEstoque_i
+REFINES GerenciadorEstoque
+
+SEES Estoque
+
+CONCRETE_VARIABLES 
+    arrayestoques
+    
+INVARIANT 
+    arrayestoques: ESTOQUE --> BOOL   
+
+INITIALISATION arrayestoques := ESTOQUE * {FALSE}
+    
+
+OPERATIONS
+    adicionarEstoque(novoE) =
+    BEGIN   
+        arrayestoques(novoE) := TRUE
+    END;
+
+    
+    removerEstoque(estARemover) =
+    BEGIN   
+        arrayestoques(estARemover) := FALSE
+    END
+
+ END

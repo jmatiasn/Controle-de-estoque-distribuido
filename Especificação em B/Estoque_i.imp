@@ -1,0 +1,11 @@
+/* Estoque_i
+ * Author: Joao
+ * Creation date: 26/06/2017
+ */
+
+IMPLEMENTATION Estoque_i
+REFINES Estoque
+VALUES
+    ESTOQUE = 0..30
+
+END
