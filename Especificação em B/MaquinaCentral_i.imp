@@ -1,21 +1,47 @@
 /* MaquinaCentral_i
- * Author: Joao
- * Creation date: 26/06/2017
- */
+* Author: Joao
+* Creation date: 26/06/2017
+*/
 
 IMPLEMENTATION MaquinaCentral_i
 REFINES MaquinaCentral
-
+    
 IMPORTS GerenciadorTipo, GerenciadorProduto, GerenciadorEstoque
-
-CONCRETE_VARIABLES produtoTipo
     
-INVARIANT produtoTipo: PRODUTO --> TIPO    
-
-INITIALISATION produtoTipo := PRODUTO * {semtipo}
+CONCRETE_VARIABLES produtoTipo,
+    estoqueTipo,
+    estoqueTipoLimiteTemp,
+    estoqueProduto
+//    ,
+//    estoqueProdutoQtdTemp
     
-
+INVARIANT produtoTipo: PRODUTO --> TIPO &
+    estoqueTipo: ESTOQUE --> TIPO &
+    estoqueTipoLimiteTemp: ESTOQUE --> NAT1 &
+    !ee . (ee:dom(estoqueTipoLimite) => 
+        estoqueTipoLimite(ee) = estoqueTipo(ee) |-> estoqueTipoLimiteTemp(ee)) &
+    estoqueProduto: ESTOQUE --> PRODUTO 
+//    &
+//    estoqueProdutoQtdTemp: PRODUTO --> NAT1 
+//    &
+//    !pp . (pp:dom(estoqueProdutoQtd) => 
+//        estoqueProdutoQtd(pp) = estoqueProduto(pp) |-> estoqueProdutoQtdTemp(pp))
+    
+INITIALISATION produtoTipo := PRODUTO * {semtipo};
+    estoqueTipo:= ESTOQUE * {semtipo};
+    estoqueTipoLimiteTemp := ESTOQUE * {0};
+    estoqueProduto(DEFAULT_ESTOQUE):= DEFAULT_PRODUTO
+//    ;
+//    estoqueProdutoQtdTemp := PRODUTO * {0}
+    
+    
 OPERATIONS
+    
+    //---------------------------------------------------------------------
+    //OPERAÇÕES COM TIPO
+    
+    //---------------------------------------------------------------------
+    //OPERAÇÕES COM PRODUTO
     cadastrarProdutoMC(pp, tt) =
     BEGIN
         VAR existeP, existeT IN
@@ -23,9 +49,39 @@ OPERATIONS
             existeT <-- existeTipo(tt);
             IF existeP = FALSE & existeT = TRUE
             THEN adicionarProduto(pp);
-            produtoTipo(pp) := tt
+                produtoTipo(pp) := tt
             END    
         END
+    END;
+    
+    //---------------------------------------------------------------------
+    //OPERAÇÕES COM ProdutoTipo
+    atribuirProdutoTipo(pp, tt) =
+    BEGIN
+        produtoTipo(pp):= tt
+    END;
+    
+    //---------------------------------------------------------------------
+    //OPERAÇÕES COM ESTOQUE
+    criarEstoqueMC(ee) =
+    BEGIN
+        adicionarEstoque(ee)
+    END;
+    
+    atribuirTiposNoEstoque(ee, tt) =
+    BEGIN
+        estoqueTipo(ee) := tt
+    END;
+    
+    atribuirLimiteTipoNoEstoque(ee, tt, qq) =
+    BEGIN
+        estoqueTipo(ee):= tt;
+        estoqueTipoLimiteTemp(ee):= qq
+    END;
+    
+    cadastrarProdutosNoEstoque(ee, pp) =
+    BEGIN
+        estoqueProduto(ee) := pp
     END
-
- END
+    
+END

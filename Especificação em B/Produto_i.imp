@@ -7,7 +7,9 @@ IMPLEMENTATION Produto_i
 REFINES Produto
     
 VALUES
-    PRODUTO = 0..30
+    PRODUTO = 0..30;
+    DEFAULT_PRODUTO = 0;
+    MAX_PRODUTO = 30
 
 
  END

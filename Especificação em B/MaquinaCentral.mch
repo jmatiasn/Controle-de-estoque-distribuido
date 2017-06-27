@@ -9,27 +9,26 @@ MACHINE
 
 INCLUDES GerenciadorTipo, GerenciadorProduto, GerenciadorEstoque
 
-VARIABLES produtoTipo
-    /*, 
+VARIABLES produtoTipo,
           estoqueTipo,
           estoqueTipoLimite,
-          estoqueProduto,
-          estoqueProdutoQtd*/
+          estoqueProduto
+//          ,
+//          estoqueProdutoQtd
     
-INVARIANT produtoTipo: PRODUTO --> TIPO 
-    /*&
-          estoqueTipo: estoques <-> tipos &
-          estoqueTipoLimite: estoqueTipo <-> NAT1 &
-          estoqueProduto: estoques <-> produtos &
-          estoqueProdutoQtd: estoqueProduto <-> NAT1 */
+INVARIANT produtoTipo: PRODUTO --> TIPO &
+          estoqueTipo: ESTOQUE --> TIPO &
+          estoqueTipoLimite: ESTOQUE +-> (TIPO * NAT) &
+          estoqueProduto: ESTOQUE --> PRODUTO 
+//          &
+//          estoqueProdutoQtd: ESTOQUE +-> (PRODUTO * NAT)
     
-INITIALISATION produtoTipo:= PRODUTO * {semtipo} 
-    /*|| 
-               estoqueTipo:= {} || 
+INITIALISATION produtoTipo:= PRODUTO * {semtipo}  ||
+               estoqueTipo:= ESTOQUE * {semtipo} ||
                estoqueTipoLimite:= {} ||
-               estoqueProduto:= {} ||
-               estoqueProdutoQtd := {}
-               */
+               estoqueProduto(DEFAULT_ESTOQUE):= DEFAULT_PRODUTO 
+//               ||
+//               estoqueProdutoQtd := {}
     
 //PROMOTES adicionarTipo
     
@@ -60,7 +59,7 @@ OPERATIONS
            tt: TIPO & tt: tipos
     THEN   adicionarProduto(pp) ||
            produtoTipo(pp) := tt
-    END
+    END;
     /*
     removerProdutoMC(pp) =
     PRE    pp:PRODUTO & 
@@ -75,13 +74,16 @@ OPERATIONS
     
     //---------------------------------------------------------------------
     //OPERAÇÕES COM TIPO<->PRODUTO
-    atribuirTipoProduto(pp, tt) =
+    */
+    atribuirProdutoTipo(pp, tt) =
     PRE    pp: PRODUTO & 
            pp: dom(produtoTipo) &
            tt: TIPO & 
            tt: ran(produtoTipo)
     THEN   produtoTipo(pp):= tt
     END;
+    
+    /*
     
 //    tt <-- obterTipoProduto(pp) =
 //    PRE    pp:produtos & 
@@ -93,7 +95,8 @@ OPERATIONS
     //---------------------------------------------------------------------
     //OPERAÇÕES COM ESTOQUE
     // (ESTOQUES * TIPOS) -> QUANT
-    // TODO: Como fazer pow ao invés de relação?
+    // TODO: Como fazer pow ao invés de relação? */
+    
     criarEstoqueMC(ee) =
     PRE    ee: ESTOQUE & 
            ee/: estoques
@@ -106,14 +109,14 @@ OPERATIONS
     THEN   estoqueTipo := estoqueTipo \/ {ee |-> tt}
     END;
     
-    atribuirQuantidadeTipoNoEstoque(ee, tt, qq) =
+    atribuirLimiteTipoNoEstoque(ee, tt, qq) =
     PRE    ee: ESTOQUE &
            ee: dom(estoqueTipo) & 
            tt: TIPO &
            tt: ran(estoqueTipo) & 
            (ee |-> tt): estoqueTipo & 
-           qq: NAT1
-    THEN   estoqueTipoLimite(ee |-> tt):= qq
+           qq: {0}
+    THEN   estoqueTipoLimite(ee):= tt |-> qq
     END;
     
     cadastrarProdutosNoEstoque(ee, pp) =
@@ -122,7 +125,9 @@ OPERATIONS
            pp: PRODUTO &
            pp: dom(produtoTipo)
     THEN   estoqueProduto := estoqueProduto \/ {ee |-> pp}
-    END;
+    END
+    
+    /*
     
     //Atribui a quantidade que existe de um produto no estoque
     atribuirQuantidadeProdutosNoEstoque(ee, pp, qq) =
