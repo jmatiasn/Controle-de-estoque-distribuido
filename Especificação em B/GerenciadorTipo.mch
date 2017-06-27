@@ -27,6 +27,15 @@ OPERATIONS
     removerTipo(tipoARemover) =
     PRE    tipoARemover: TIPO & tipoARemover /= semtipo
     THEN   tipos := tipos - {tipoARemover}
+    END;
+    
+    ans <-- existeTipo(tt) =
+    PRE    tt: TIPO
+    THEN   
+        IF    tt: tipos
+        THEN  ans := TRUE
+        ELSE  ans := FALSE
+        END
     END
    
 

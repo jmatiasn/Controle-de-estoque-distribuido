@@ -23,6 +23,15 @@ OPERATIONS
     removerProduto(prodARemover) =
     PRE   prodARemover: PRODUTO
     THEN  produtos := produtos - {prodARemover}
+    END;
+    
+    ans <-- existeProduto(pp) =
+    PRE    pp: PRODUTO
+    THEN   
+        IF    pp: produtos
+        THEN  ans := TRUE
+        ELSE  ans := FALSE
+        END
     END
 
 END

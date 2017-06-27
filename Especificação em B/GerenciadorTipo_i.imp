@@ -34,6 +34,17 @@ OPERATIONS
         IF tipoARemover /= semtipo
         THEN arraytipos(tipoARemover) := FALSE
         END
+    END;
+    
+    ans <-- existeTipo(tt) =
+    BEGIN  
+        VAR tmp IN
+            tmp := arraytipos(tt);
+            IF    tmp = TRUE
+            THEN  ans := TRUE
+            ELSE  ans := FALSE
+            END
+        END
     END
     
 END

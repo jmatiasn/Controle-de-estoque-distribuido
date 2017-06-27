@@ -8,29 +8,33 @@ MACHINE
     MaquinaCentral
 
 INCLUDES GerenciadorTipo, GerenciadorProduto, GerenciadorEstoque
-    
-VARIABLES produtoTipo, 
+
+VARIABLES produtoTipo
+    /*, 
           estoqueTipo,
           estoqueTipoLimite,
           estoqueProduto,
-          estoqueProdutoQtd
+          estoqueProdutoQtd*/
     
-INVARIANT produtoTipo: produtos <-> tipos &
+INVARIANT produtoTipo: PRODUTO --> TIPO 
+    /*&
           estoqueTipo: estoques <-> tipos &
           estoqueTipoLimite: estoqueTipo <-> NAT1 &
           estoqueProduto: estoques <-> produtos &
-          estoqueProdutoQtd: estoqueProduto <-> NAT1 
+          estoqueProdutoQtd: estoqueProduto <-> NAT1 */
     
-INITIALISATION produtoTipo:= {} || 
+INITIALISATION produtoTipo:= PRODUTO * {semtipo} 
+    /*|| 
                estoqueTipo:= {} || 
                estoqueTipoLimite:= {} ||
                estoqueProduto:= {} ||
                estoqueProdutoQtd := {}
+               */
     
-PROMOTES adicionarTipo
+//PROMOTES adicionarTipo
     
 OPERATIONS
-    
+    /*
     //---------------------------------------------------------------------
     //OPERAÇÕES COM TIPO
     removerTipoMC(tt) =
@@ -46,18 +50,18 @@ OPERATIONS
            estoqueTipoLimite := (estoqueTipo |> {tt}) <<| estoqueTipoLimite \/
                                  dom(estoqueTipo |> {tt}) * {semtipo} * ran((estoqueTipo |> {tt}) <| estoqueTipoLimite)
     END;
-    
+    */
     //---------------------------------------------------------------------
     //OPERAÇÕES COM PRODUTO
     cadastrarProdutoMC(pp, tt) =
     PRE    pp: PRODUTO & 
            pp/: produtos & 
            pp/:dom(produtoTipo) & 
-           tt: TIPO
+           tt: TIPO & tt: tipos
     THEN   adicionarProduto(pp) ||
            produtoTipo(pp) := tt
-    END;
-    
+    END
+    /*
     removerProdutoMC(pp) =
     PRE    pp:PRODUTO & 
            pp: dom(produtoTipo)
@@ -141,6 +145,6 @@ OPERATIONS
            (ee |-> pp): dom(estoqueProdutoQtd)
     THEN   estoqueProduto := estoqueProduto - {ee |-> pp} ||
            estoqueProdutoQtd := estoqueProduto - {ee |-> pp} <| estoqueProdutoQtd
-    END
+    END*/
        
 END

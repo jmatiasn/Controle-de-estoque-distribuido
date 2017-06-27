@@ -27,6 +27,17 @@ OPERATIONS
     removerProduto(prodARemover) =
     BEGIN   
         arrayprodutos(prodARemover) := FALSE
+    END;
+    
+    ans <-- existeProduto(pp) =
+    BEGIN  
+        VAR tmp IN
+            tmp := arrayprodutos(pp);
+            IF    tmp = TRUE
+            THEN  ans := TRUE
+            ELSE  ans := FALSE
+            END
+        END
     END
 
  END
